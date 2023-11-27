@@ -1,0 +1,3 @@
+J:/college/fp-growth-implementation/cmake-build-debug/CMakeFiles/fp_growth_implementation.dir
+J:/college/fp-growth-implementation/cmake-build-debug/CMakeFiles/edit_cache.dir
+J:/college/fp-growth-implementation/cmake-build-debug/CMakeFiles/rebuild_cache.dir
