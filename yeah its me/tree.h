@@ -20,6 +20,12 @@ public:
     }
 };
 
+struct Pattern_base{
+    vector<string>items;
+    int frequent;
+};
+
 Tree build_Tree(
         const vector<vector<string>>& transactions
 );
+map<string,Pattern_base> get_cond_pattern_base(Tree tree);
