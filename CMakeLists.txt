@@ -8,4 +8,6 @@ add_executable(fp_growth_implementation main.cpp
         "yeah its me/Preprocessing.h"
         "yeah its me/tree.cpp"
         "yeah its me/tree.h"
+        "yeah its me/extraction.cpp"
+        "yeah its me/extraction.h"
 )

@@ -1,5 +1,6 @@
 #include "yeah its me/preprocessing.h"
 #include "yeah its me/tree.h"
+#include "yeah its me/extraction.h"
 
 int main() {
 
@@ -15,5 +16,5 @@ int main() {
     map<string,Pattern_base>conditional_pattern_base = get_cond_pattern_base(tree);
 
 
-    cout<<"its works\n";
+    cout<<"its worked\n";
 }
