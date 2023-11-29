@@ -3,6 +3,11 @@
 //
 
 #include "Preprocessing.h"
+int support;
+
+void set_support(int min_support){
+    support = min_support;
+}
 
     vector<vector<string>> read_input() {
         vector<vector<string>> transactions;
@@ -16,8 +21,7 @@
 
 
     vector<freq> get_c1_frequent(
-            vector<vector<string>> transactions
-    ) {
+            const vector<vector<string>>& transactions) {
         vector<freq> c1_frequent;
         //TODO:[2] return array of string and its frequent. must be sorted by frequent
         // @anas
@@ -27,7 +31,7 @@
 
 
     vector<vector<string>> rebuild_transactions(
-            vector<vector<string>> transactions,
+            const vector<vector<string>>& transactions,
             const vector<freq>& c1_frequent
     ) {
         vector<vector<string>> new_transactions;
