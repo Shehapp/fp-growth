@@ -12,6 +12,7 @@ Tree build_Tree(
     Tree tree;
 /*TODO:[4] build Tree obj, every node has its freq and next level nodes
  * please use while loop to add Nodes
+ * @tarek
 */
     return tree;
 
@@ -20,7 +21,9 @@ Tree build_Tree(
 map<string,vector<Pattern_base>> get_cond_pattern_base(Tree tree){
     map<string,vector<Pattern_base>> base;
     /*TODO:[5] use Tree obj, to extract conditional pattern base
-     * please use helper function to do this*/
+     * please use helper function to do this
+     * @shehapoo
+     * */
     vector<string>curPath;
     auto dfs=[&](auto &&self,Node *curNode)->void {
         if(!curPath.empty()){

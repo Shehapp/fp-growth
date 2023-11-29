@@ -6,7 +6,8 @@
 
     vector<vector<string>> read_input() {
         vector<vector<string>> transactions;
-        //TODO:[1] read transactions from xlsx file and return transactions;
+        //TODO:[1] read transactions from xlsx file and return transactions
+        // @ali
 
 
 
@@ -19,7 +20,7 @@
     ) {
         vector<freq> c1_frequent;
         //TODO:[2] return array of string and its frequent. must be sorted by frequent
-
+        // @anas
 
         return c1_frequent;
     }
@@ -31,7 +32,8 @@
     ) {
         vector<vector<string>> new_transactions;
         //TODO:[3] sort each transaction by c1_frequent and erase not frequent items
+        // @abdo
 
-        return transactions;
+        return new_transactions;
     }
 

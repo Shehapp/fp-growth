@@ -5,15 +5,15 @@
 int main() {
 
     // preprocess the transaction table 
-    vector<vector<string>> transactions = read_input(); //@ ALI_KHALED
-    vector<freq> frequent = get_c1_frequent(transactions); //@ ANAS
+    vector<vector<string>> transactions = read_input(); //@ali
+    vector<freq> frequent = get_c1_frequent(transactions); //@anas
     //transactions w ordered item set
-    transactions = rebuild_transactions(transactions, frequent); //ABDO SHERIF
+    transactions = rebuild_transactions(transactions, frequent); //abdo
 
     //build the tree
     Tree tree = build_Tree(transactions); //@tarek
     // get conditional pattern base
-    map<string,vector<Pattern_base>>conditional_pattern_base = get_cond_pattern_base(tree); //@shehap+tarek 
+    map<string,vector<Pattern_base>>conditional_pattern_base = get_cond_pattern_base(tree); //@shehapoo
 
 
     cout<<"its worked\n";
