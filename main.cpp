@@ -4,16 +4,16 @@
 
 int main() {
 
-    // preprocess the transaction table
-    vector<vector<string>> transactions = read_input();
-    vector<freq> frequent = get_c1_frequent(transactions);
+    // preprocess the transaction table 
+    vector<vector<string>> transactions = read_input(); //@ ALI_KHALED
+    vector<freq> frequent = get_c1_frequent(transactions); //@ ANAS
     //transactions w ordered item set
-    transactions = rebuild_transactions(transactions, frequent);
+    transactions = rebuild_transactions(transactions, frequent); //ABDO SHERIF
 
     //build the tree
-    Tree tree = build_Tree(transactions);
+    Tree tree = build_Tree(transactions); //@tarek
     // get conditional pattern base
-    map<string,Pattern_base>conditional_pattern_base = get_cond_pattern_base(tree);
+    map<string,Pattern_base>conditional_pattern_base = get_cond_pattern_base(tree); //@shehap+tarek 
 
 
     cout<<"its worked\n";
