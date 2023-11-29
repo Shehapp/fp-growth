@@ -20,6 +20,7 @@ public:
     Tree(){
         root = new Node;
         root->name="root";
+        root->freq=-1;
     }
 };
 

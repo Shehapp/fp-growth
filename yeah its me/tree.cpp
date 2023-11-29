@@ -9,12 +9,53 @@
 Tree build_Tree(
         const vector<vector<string>>& transactions
 ) {
-    Tree tree;
 /*TODO:[4] build Tree obj, every node has its freq and next level nodes
  * please use while loop to add Nodes
  * @tarek
 */
-    return tree;
+    Tree myTree;
+    for (const auto& transaction : transactions)
+    {
+        Node* currentNode = myTree.root;
+
+        for (const auto& nodeName : transaction)
+        {
+
+            //cout<<nodeName<<endl;
+
+            Node* childNode = nullptr;
+            for (const auto& child : currentNode->child)
+            {
+                    //cout<<currentNode->child.size()<<" NC"<<endl;
+                if (child->name == nodeName)
+                {
+                    //cout<<nodeName<<"----"<<child->name<<endl;
+                    childNode = child;
+                    //break;
+                }
+            }
+
+            if (childNode)
+            {
+                childNode->freq++;
+                currentNode = childNode;
+            }
+            else
+            {
+                //cout<<nodeName<<"hmm"<<endl;
+                Node* newNode = new Node;
+                newNode->name = nodeName;
+                newNode->freq = 1;
+                currentNode->child.push_back(newNode);
+                //currentNode = newNode;
+            }
+
+        }
+    }
+
+    return myTree;
+    
+
 
 }
 
