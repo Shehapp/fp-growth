@@ -9,7 +9,6 @@
 Tree build_Tree(
         const vector<vector<string>>& transactions
 ) {
-    Tree myTree;
 /*TODO:[4] build Tree obj, every node has its freq and next level nodes
  * please use while loop to add Nodes
 */
