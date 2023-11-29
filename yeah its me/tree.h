@@ -3,12 +3,14 @@
 //
 
 #include <bits/stdc++.h>
+#include "Preprocessing.h"
+
 using namespace std;
 
 class Node{
 public:
     string name;
-    int freq;
+    int freq{};
     vector<Node*>child;
 };
 
@@ -21,12 +23,15 @@ public:
     }
 };
 
-struct Pattern_base{
-    vector<string>items;
-    int frequent;
-};
+
 
 Tree build_Tree(
         const vector<vector<string>>& transactions
 );
-map<string,vector<Pattern_base>> get_cond_pattern_base(Tree tree);
+
+map<string,vector<vector<string>>> get_cond_pattern_base(Tree tree);
+
+void get_all_freq(const vector<freq>&c1Frequent,
+                  map<string,vector<vector<string>>>conditional_pattern_base,
+                  vector<vector<string>>*freq,
+                  vector<string>curPath);

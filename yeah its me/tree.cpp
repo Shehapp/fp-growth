@@ -18,8 +18,8 @@ Tree build_Tree(
 
 }
 
-map<string,vector<Pattern_base>> get_cond_pattern_base(Tree tree){
-    map<string,vector<Pattern_base>> base;
+map<string,vector<vector<string>>> get_cond_pattern_base(Tree tree){
+    map<string,vector<vector<string>>> base;
     /*TODO:[5] use Tree obj, to extract conditional pattern base
      * please use helper function to do this
      * @shehapoo
@@ -27,10 +27,9 @@ map<string,vector<Pattern_base>> get_cond_pattern_base(Tree tree){
     vector<string>curPath;
     auto dfs=[&](auto &&self,Node *curNode)->void {
         if(!curPath.empty()){
-            Pattern_base patternBase;
-            patternBase.frequent=curNode->freq;
-            patternBase.items=curPath;
-            base[curNode->name].push_back(patternBase);
+            for (int i = 0; i < curNode->freq; ++i) {
+                base[curNode->name].push_back(curPath);
+            }
         }
         if(curNode->name!="root")
             curPath.push_back(curNode->name);
@@ -45,3 +44,34 @@ map<string,vector<Pattern_base>> get_cond_pattern_base(Tree tree){
     return base;
 }
 
+void get_all_freq(const vector<freq>&c1Frequent,
+                  map<string,vector<vector<string>>>conditional_pattern_base,
+                  vector<vector<string>>*frequents,
+                  vector<string>curPath){
+/*TODO:[6] get all frequent
+     * @shehapoo
+     * */
+    for(const auto& i:c1Frequent){
+        curPath.push_back(i.item);
+        sort(curPath.begin(),curPath.end());
+        frequents->push_back(curPath);
+
+        vector<freq>new_c1Frequent =
+                get_c1_frequent(conditional_pattern_base[i.item]);
+
+        if(!new_c1Frequent.empty()){
+
+            vector<vector<string>> transactions = rebuild_transactions(conditional_pattern_base[i.item], c1Frequent);
+
+            Tree tree = build_Tree(transactions);
+
+            get_all_freq(new_c1Frequent,
+                         get_cond_pattern_base(tree),
+                         frequents,
+                         curPath);
+        }
+        curPath.pop_back();
+
+    }
+
+}
