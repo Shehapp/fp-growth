@@ -13,7 +13,7 @@ int main() {
     //build the tree
     Tree tree = build_Tree(transactions); //@tarek
     // get conditional pattern base
-    map<string,Pattern_base>conditional_pattern_base = get_cond_pattern_base(tree); //@shehap+tarek 
+    map<string,vector<Pattern_base>>conditional_pattern_base = get_cond_pattern_base(tree); //@shehap+tarek 
 
 
     cout<<"its worked\n";
