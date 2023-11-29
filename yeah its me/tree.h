@@ -29,4 +29,4 @@ struct Pattern_base{
 Tree build_Tree(
         const vector<vector<string>>& transactions
 );
-map<string,Pattern_base> get_cond_pattern_base(Tree tree);
+map<string,vector<Pattern_base>> get_cond_pattern_base(Tree tree);
