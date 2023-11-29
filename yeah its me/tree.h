@@ -8,6 +8,7 @@ using namespace std;
 class Node{
 public:
     string name;
+    int freq;
     vector<Node*>child;
 };
 
