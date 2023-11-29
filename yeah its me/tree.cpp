@@ -21,17 +21,13 @@ Tree build_Tree(
         for (const auto& nodeName : transaction)
         {
 
-            //cout<<nodeName<<endl;
 
             Node* childNode = nullptr;
             for (const auto& child : currentNode->child)
             {
-                    //cout<<currentNode->child.size()<<" NC"<<endl;
                 if (child->name == nodeName)
                 {
-                    //cout<<nodeName<<"----"<<child->name<<endl;
                     childNode = child;
-                    //break;
                 }
             }
 
@@ -42,12 +38,10 @@ Tree build_Tree(
             }
             else
             {
-                //cout<<nodeName<<"hmm"<<endl;
                 Node* newNode = new Node;
                 newNode->name = nodeName;
                 newNode->freq = 1;
                 currentNode->child.push_back(newNode);
-                //currentNode = newNode;
             }
 
         }
