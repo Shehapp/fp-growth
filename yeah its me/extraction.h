@@ -5,6 +5,7 @@
 #include <vector>
 #include <string>
 #include <map>
+#include <algorithm>
 using namespace std;
 
 // get the rules to build the association rules
@@ -14,7 +15,7 @@ vector<  pair < vector<string>,vector<string>> > get_rules(vector<string>frq_ite
 int get_frequency(vector<string>items, vector<vector<string>> transactions);
 
 
-float get_support(pair<string, string>rule, vector<vector<string>> transactions);
+float get_support(vector<string>items, vector<vector<string>> transactions);
 
 
 float get_confidence(pair<string, string>rule, vector<vector<string>> transactions);

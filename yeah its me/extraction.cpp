@@ -66,16 +66,30 @@ vector<  pair < vector<string>, vector<string>> > get_rules(vector<string>frq_it
 // get the freq for one or more item together
 int get_frequency(vector<string>items, vector<vector<string>> transactions) {
     /*TODO:[7] get all frequent
-         * 
+         * @Tarek 
+         * time could be reduced using binary search by sorting the transactions
          * */
 
-    return 0;
+    int frequency = 0;
+
+    for (int i = 0; i < transactions.size(); i++) {
+        if (all_of(items.begin(), items.end(), [&transactions, i](const string& item) {
+
+            return find(transactions[i].begin(), transactions[i].end(), item) != transactions[i].end();
+
+            })) {
+
+            frequency++;
+        }
+    }
+
+    return frequency;
 
 }
 
-float get_support(pair<string, string>rule, vector<vector<string>> transactions) {
+float get_support(vector<string>items, vector<vector<string>> transactions) {
     /*TODO:[8] get all frequent
-         * 
+         *@ Abdo sherif
          * */
 
     return 0;
@@ -84,7 +98,7 @@ float get_support(pair<string, string>rule, vector<vector<string>> transactions)
 
 float get_confidence(pair<string, string>rule, vector<vector<string>> transactions) {
     /*TODO:[9] get all frequent
-         * 
+         *@ Anas 
          * */
 
     return 0;
