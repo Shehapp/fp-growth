@@ -3,14 +3,15 @@
 //
 
 #include <bits/stdc++.h>
+#include<algorithm>
 using namespace std;
 
 void set_support(int min_support);
 struct freq{
-    string item;
-    string frequent;
+    string item ;
+    int frequent= 0;
 
-    bool operator<(const freq& other) const {
+    bool operator <(const freq& other) const {
         return frequent < other.frequent;
         // You can customize the comparison based on your needs
     }
