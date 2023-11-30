@@ -22,26 +22,26 @@ vector<vector<string>> read_input()
 vector<freq> get_c1_frequent(const vector<vector<string>> &transactions)
 {
     vector<freq> c1_frequent;
-    bool match = 0;
+    bool match = false;
     // TODO:[2] return array of string and its frequent. must be sorted by frequent
     //  @anas
-    for (int i = 0; i < transactions.size(); i++)
+    for (const auto & transaction : transactions)
     {
-        for (int j = 0; j < transactions[i].size(); j++)
+        for (const auto & j : transaction)
         {
-            for (int i1 = 0; i1 < c1_frequent.size(); i1++)
+            for (auto & i1 : c1_frequent)
             {
                 /* code */
-                if (c1_frequent[i1].item == transactions[i][j])
+                if (i1.item == j)
                 {
-                    c1_frequent[i1].frequent++;
-                    match = 1;
+                    i1.frequent++;
+                    match = true;
                 }
             }
             if (match == 0)
             {
                 freq f;
-                f.item = transactions[i][j];
+                f.item = j;
                 f.frequent = 1;
                 c1_frequent.push_back(f);
             }
@@ -52,7 +52,7 @@ vector<freq> get_c1_frequent(const vector<vector<string>> &transactions)
         if (i2->frequent < support)
             c1_frequent.erase(i2);
     }
-    sort(c1_frequent.begin(), c1_frequent.end(), greater<freq>());
+    sort(c1_frequent.begin(), c1_frequent.end());
     return c1_frequent;
 }
 

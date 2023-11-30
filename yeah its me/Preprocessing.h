@@ -9,11 +9,10 @@ using namespace std;
 void set_support(int min_support);
 struct freq{
     string item ;
-    int frequent= 0;
+    int frequent{};
 
     bool operator <(const freq& other) const {
         return frequent < other.frequent;
-        // You can customize the comparison based on your needs
     }
 };
 
