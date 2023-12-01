@@ -106,7 +106,7 @@ void get_all_freq(const vector<freq>&c1Frequent,
                          frequents,
                          curPath);
         }
-        curPath.pop_back();
+        curPath.erase(std::find(curPath.begin(), curPath.end(),i.item));
 
     }
 
