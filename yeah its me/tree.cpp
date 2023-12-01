@@ -42,6 +42,7 @@ Tree build_Tree(
                 newNode->name = nodeName;
                 newNode->freq = 1;
                 currentNode->child.push_back(newNode);
+                currentNode = newNode;
             }
 
         }
