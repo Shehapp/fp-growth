@@ -2,37 +2,40 @@
 // Created by shehap on 11/26/2023.
 //
 
-#include <bits/stdc++.h>
+#include <vector>
+#include <string>
+#include <map>
+#include <algorithm>
 #include "Preprocessing.h"
 
 using namespace std;
 
-class Node{
+class Node {
 public:
     string name;
     int freq{};
     vector<Node*>child;
 };
 
-class Tree{
+class Tree {
 public:
-    Node *root;
-    Tree(){
+    Node* root;
+    Tree() {
         root = new Node;
-        root->name="root";
-        root->freq=-1;
+        root->name = "root";
+        root->freq = -1;
     }
 };
 
 
 
 Tree build_Tree(
-        const vector<vector<string>>& transactions
+    const vector<vector<string>>& transactions
 );
 
-map<string,vector<vector<string>>> get_cond_pattern_base(Tree tree);
+map<string, vector<vector<string>>> get_cond_pattern_base(Tree tree);
 
-void get_all_freq(const vector<freq>&c1Frequent,
-                  map<string,vector<vector<string>>>conditional_pattern_base,
-                  vector<vector<string>>*freq,
-                  vector<string>curPath);
+void get_all_freq(const vector<freq>& c1Frequent,
+    map<string, vector<vector<string>>>conditional_pattern_base,
+    vector<vector<string>>* freq,
+    vector<string>curPath,int support);

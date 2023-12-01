@@ -19,64 +19,87 @@ vector<vector<string>> read_input()
     return transactions;
 }
 
-vector<freq> get_c1_frequent(const vector<vector<string>> &transactions)
+
+
+unordered_map<string, int> get_item_frequencies(const vector<vector<string>>& transactions)
 {
-    vector<freq> c1_frequent;
-    bool match = false;
-    // TODO:[2] return array of string and its frequent. must be sorted by frequent
-    //  @anas
-    for (const auto & transaction : transactions)
+
+    unordered_map<string, int> item_freq;
+
+    for (const auto& transaction : transactions)
     {
-        for (const auto & j : transaction)
+        unordered_set<string> uniqueItems(transaction.begin(), transaction.end());
+        for (const auto& item : uniqueItems)
         {
-            for (auto & i1 : c1_frequent)
-            {
-                /* code */
-                if (i1.item == j)
-                {
-                    i1.frequent++;
-                    match = true;
-                }
-            }
-            if (match == 0)
-            {
-                freq f;
-                f.item = j;
-                f.frequent = 1;
-                c1_frequent.push_back(f);
-            }
+            item_freq[item]++;
         }
     }
-    for (auto i2 = c1_frequent.begin(); i2 != c1_frequent.end(); i2++)
+
+    return item_freq;
+}
+
+vector<freq> get_c1_frequent(const vector<vector<string>>& transactions, int support)
+{
+
+    unordered_map<string, int> item_freq = get_item_frequencies(transactions);
+    vector<freq> c1_frequent;
+
+    for (auto it = item_freq.begin(); it != item_freq.end(); ++it)
     {
-        if (i2->frequent < support)
-            c1_frequent.erase(i2);
+        const std::string& item = it->first;       // Key (item)
+        int frequency = it->second;                // Value (frequency)
+
+        if (frequency >= support)
+        {
+            c1_frequent.push_back({ item, frequency });
+        }
     }
-    sort(c1_frequent.begin(), c1_frequent.end());
+    std::sort(c1_frequent.begin(), c1_frequent.end(), [](const freq& a, const freq& b) {
+        return a.frequent > b.frequent;
+        });
+
+
     return c1_frequent;
 }
 
-vector<vector<string>> rebuild_transactions(const vector<vector<string>> &transactions, const vector<freq> &c1_frequent)
+vector<vector<string>> rebuild_transactions(const vector<vector<string>>& transactions, const vector<freq>& c1_frequent, int support)
 {
     vector<vector<string>> new_transactions;
-    // TODO:[3] sort each transaction by c1_frequent and erase not frequent items
-    //  @abdo
+    unordered_map<string, int> item_freq = get_item_frequencies(transactions);
 
-    for (int t_1 = 0; t_1 < transactions.size(); t_1++)
+    for (const auto& transaction : transactions)
     {
-        for (int t_2 = 0; t_2 < transactions[t_1].size(); t_2++)
+        vector<string> sorted_transaction = transaction;
+
+
+        sort(sorted_transaction.begin(), sorted_transaction.end(),
+            [&c1_frequent](const string& a, const string& b) {
+                auto find_freq = [&c1_frequent](const string& item) {
+                    auto it = find_if(c1_frequent.begin(), c1_frequent.end(),
+                        [item](const freq& f) { return f.item == item; });
+                    return (it != c1_frequent.end()) ? it->frequent : 0;
+                };
+
+                return find_freq(a) > find_freq(b);
+            });
+
+
+
+        unordered_map<string, int>already_found;
+        for (auto& item : sorted_transaction)
         {
-            for (const auto& el : c1_frequent)
+            already_found[item]++;
+            if (item_freq[item] < support || already_found[item]>1)
             {
-                if ( transactions[t_1][t_2] == el.item )
-                {
-                    new_transactions[t_1].push_back(el.item);
-                    break;
-                }
-                
+                item.clear();
             }
         }
+
+        sorted_transaction.erase(remove(sorted_transaction.begin(), sorted_transaction.end(), ""), sorted_transaction.end());
+
+        new_transactions.push_back(sorted_transaction);
     }
 
     return new_transactions;
 }
+
