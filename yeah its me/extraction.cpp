@@ -8,34 +8,32 @@ void generate_combinations(vector<string>& items, int start, vector<string>& cur
 
     /*TODO:[10] get all frequent
          * @Tarek
-         * Using bactracking and recursion to get all rules 
+         * Using backtracking and recursion to get all rules
          * */
 
-    
+
     if (current.size() == items.size()) {
         vector<string> first_set, second_set;
         for (int i = 0; i < items.size(); ++i) {
             if (current[i] == "1") {
                 first_set.push_back(items[i]);
-            }
-            else {
+            } else {
                 second_set.push_back(items[i]);
             }
         }
         if (!first_set.empty() && !second_set.empty()) {
-            result.push_back({ first_set, second_set });
+            result.emplace_back(first_set, second_set);
         }
         return;
     }
 
 
-    current.push_back("1");
+    current.emplace_back("1");
     generate_combinations(items, start + 1, current, result);
     current.pop_back();
 
 
-
-    current.push_back("0");
+    current.emplace_back("0");
     generate_combinations(items, start + 1, current, result);
     current.pop_back();
 }
@@ -44,11 +42,12 @@ void generate_combinations(vector<string>& items, int start, vector<string>& cur
 
 
 
+// helper function to get all frequent itemset
 vector<  pair < vector<string>, vector<string>> > get_rules(vector<string>frq_itemset) {
     /*TODO:[7] get all frequent
          * @Tarek
          * */
-    vector<  pair < vector<string>, vector<string>> >rules;
+    vector<pair<vector<string>, vector<string>>> rules;
     vector<string> current;
 
     generate_combinations(frq_itemset, 0, current, rules);
@@ -72,12 +71,12 @@ int get_frequency(vector<string>items, vector<vector<string>> transactions) {
 
     int frequency = 0;
 
-    for (int i = 0; i < transactions.size(); i++) {
-        if (all_of(items.begin(), items.end(), [&transactions, i](const string& item) {
+    for (auto & transaction : transactions) {
+        if (all_of(items.begin(), items.end(), [&transactions, &transaction](const string &item) {
 
-            return find(transactions[i].begin(), transactions[i].end(), item) != transactions[i].end();
+            return find(transaction.begin(), transaction.end(), item) != transaction.end();
 
-            })) {
+        })) {
 
             frequency++;
         }
@@ -87,31 +86,30 @@ int get_frequency(vector<string>items, vector<vector<string>> transactions) {
 
 }
 
-float get_support(vector<string>items, vector<vector<string>> transactions) {
+
+// helper function to calculate support
+float get_support(vector<string>items, const vector<vector<string>>& transactions) {
     /*TODO:[8] get all frequent
          *@ Abdo sherif
          * */
 
     return float(get_frequency(items, transactions)) / float(transactions.size());
 
-    return 0;
 }
 
 
-float get_confidence(pair<vector<string>, vector<string>> rule, vector<vector<string>> transactions)
-{
+float get_confidence(pair<vector<string>, vector<string>> rule, vector<vector<string>> transactions) {
     /*TODO:[9] get all frequent
      *@ Anas
      * */
 
     vector<string> mergedVector(rule.first.begin(), rule.first.end());
     mergedVector.insert(mergedVector.end(), rule.second.begin(), rule.second.end());
-    
+
     return float(get_frequency(mergedVector, transactions)) / float(get_frequency(rule.first, transactions));
 }
 
-float get_lift(pair<vector<string>, vector<string>> rule, vector<vector<string>> transactions)
-{
+float get_lift(pair<vector<string>, vector<string>> rule, const vector<vector<string>>& transactions) {
     /*TODO:[11] get all frequent
      *@ Tarek
      * */
@@ -125,7 +123,7 @@ float get_lift(pair<vector<string>, vector<string>> rule, vector<vector<string>>
     float support_fs = get_support(mergedVector, transactions);
 
     if (support_f == 0 || support_s == 0) {
-      
+
         return 0;
     }
 
