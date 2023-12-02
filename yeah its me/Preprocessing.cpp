@@ -3,16 +3,17 @@
 //
 
 #include "Preprocessing.h"
-int support;
+
+[[maybe_unused]] int support;
 
 void set_support(int min_support)
 {
     support = min_support;
 }
 
-vector<vector<string>> read_input(string path)
+vector<vector<string>> read_input(const string& path)
 {// TODO:[1] read transactions from xlsx file and return transactions
-    //  @tarek
+    //    @tarek and @abdo
     ifstream file(path);
 
     if (!file.is_open()) {
@@ -21,34 +22,59 @@ vector<vector<string>> read_input(string path)
     }
 
     vector<vector<string>> data;
-
     string line;
-    getline(file, line); 
+    getline(file, line);
 
-    while (getline(file, line)) {
-        istringstream ss(line);
-        vector<string> row;
-        string value;
+    bool isVertical = false;
 
-        getline(ss, value, ',');
+    // choose any word exist in vertical and not exist in horizontal
+    if (line.find("Itemset,TID_set") != string::npos) {
+        isVertical = true;
+    }
 
-        while (getline(ss, value, ',')) {
+    if (isVertical) {
+        unordered_map<string, vector<string>> itemTransactions;
 
-            value.erase(0, value.find_first_not_of(" \t\n\r\f\v\""));
-            value.erase(value.find_last_not_of(" \t\n\r\f\v\"") + 1);
+        while (getline(file, line)) {
+            istringstream ss(line);
+            string item, transaction;
 
-            if (!value.empty()) {
-                row.push_back(value);
+            getline(ss, item, ',');
+            while (getline(ss, transaction, ',')) {
+                transaction.erase(0, transaction.find_first_not_of(" \t\n\r\f\v\""));
+                transaction.erase(transaction.find_last_not_of(" \t\n\r\f\v\"") + 1);
+                if(!transaction.empty()) {
+                    itemTransactions[transaction].push_back(item);
+                }
             }
         }
+        for(auto& itemTransaction : itemTransactions)
+        {
+            data.push_back(itemTransaction.second);
+        }
 
-        data.push_back(row);
+    } else {
+
+        while (getline(file, line)) {
+            istringstream ss(line);
+            vector<string> row;
+            string value;
+
+            while (getline(ss, value, ',')) {
+                value.erase(0, value.find_first_not_of(" \t\n\r\f\v\""));
+                value.erase(value.find_last_not_of(" \t\n\r\f\v\"") + 1);
+
+                if (!value.empty()) {
+                    row.push_back(value);
+                }
+            }
+
+            data.push_back(row);
+        }
     }
 
     return data;
 }
-
-
 
 
 

@@ -23,7 +23,7 @@ struct freq {
     }
 };
 
-vector<vector<string>> read_input(string path);
+vector<vector<string>> read_input(const string& path);
 unordered_map<string, int>  get_item_frequencies(const vector<vector<string>>& transactions);
 vector<freq> get_c1_frequent(
     const vector<vector<string>>& transactions,int support);

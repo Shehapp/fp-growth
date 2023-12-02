@@ -1,37 +1,38 @@
 Transactions : 
+O N K E Y D 
+M K Y U C 
+O K E C 
+M K E A 
 M O N K E Y 
-D O N K E Y 
-M A K E 
-M U C K Y 
-C O O K I E 
 
-Enter min support and confident : 
+
 c1 frequent 
 K 5
 E 4
 M 3
 O 3
 Y 3
+
 Rebuilt Transactions:
-K E M O Y 
 K E O Y 
-K E M 
 K M Y 
 K E O 
+K E M 
+K E M O Y 
 
 FP-Tree
 root (-1)
   K (5)
     E (4)
+      O (2)
+        Y (1)
       M (2)
         O (1)
           Y (1)
-      O (2)
-        Y (1)
     M (1)
       Y (1)
 
-Frequent itemsets : 
+Frequent item sets : 
 K  (frequency : 5 ) 
 E  (frequency : 4 ) 
 E K  (frequency : 4 ) 
@@ -46,35 +47,18 @@ K Y  (frequency : 3 )
 
 RULES confidence :
 E  --> K  confidence: 1 Strong rule  Support : 0.8 Lift : 1
-
 K  --> E  confidence: 0.8 Support : 0.8 Lift : 1
-
 K  --> M  confidence: 0.6 Support : 0.6 Lift : 1
-
 M  --> K  confidence: 1 Strong rule  Support : 0.6 Lift : 1
-
 K  --> O  confidence: 0.6 Support : 0.6 Lift : 1
-
 O  --> K  confidence: 1 Strong rule  Support : 0.6 Lift : 1
-
 E  --> O  confidence: 0.75 Support : 0.6 Lift : 1.25
-
 O  --> E  confidence: 1 Strong rule  Support : 0.6 Lift : 1.25
-
 E K  --> O  confidence: 0.75 Support : 0.6 Lift : 1.25
-
 E O  --> K  confidence: 1 Strong rule  Support : 0.6 Lift : 1
-
 E  --> K O  confidence: 0.75 Support : 0.6 Lift : 1.25
-
 K O  --> E  confidence: 1 Strong rule  Support : 0.6 Lift : 1.25
-
 K  --> E O  confidence: 0.6 Support : 0.6 Lift : 1
-
 O  --> E K  confidence: 1 Strong rule  Support : 0.6 Lift : 1.25
-
 K  --> Y  confidence: 0.6 Support : 0.6 Lift : 1
-
 Y  --> K  confidence: 1 Strong rule  Support : 0.6 Lift : 1
-
-it's worked

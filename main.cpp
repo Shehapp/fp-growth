@@ -24,9 +24,15 @@ void printTree(const Node* root, int depth = 0) {
 
 int main()
 {
+    cout << "Enter min support and confident : " << endl;
+    int min_support;
+    float confident;
+    cin >> min_support >> confident;
+    set_support(min_support);
+    cout<<endl;
 
-
-    vector<vector<string>> transactions = read_input("J:\\college\\fp-growth-implementation\\data\\Horizontal_Format.csv"); //@tarek
+//    vector<vector<string>> transactions = read_input("J:\\college\\fp-growth-implementation\\data\\Horizontal_Format.csv"); //@tarek
+    vector<vector<string>> transactions = read_input("J:\\college\\fp-growth-implementation\\data\\Vertical_Format.csv"); //@abdo
 
     freopen("J:\\college\\fp-growth-implementation\\data\\result.txt","w",stdout);
 
@@ -41,11 +47,7 @@ int main()
     }
 
     cout << endl;
-    cout << "Enter min support and confident : " << endl;
-    int min_support;
-    float confident;
-    cin >> min_support >> confident;
-    set_support(min_support);
+
 
 
 
@@ -55,7 +57,7 @@ int main()
     transactions = rebuild_transactions(transactions, c1Frequent,min_support); //abdo
     
 
-    cout << "c1 frequent " << endl;
+    cout << "\nc1 frequent " << endl;
 
     for (int i = 0; i < c1Frequent.size(); i++) {
 
@@ -64,7 +66,7 @@ int main()
     }
 
 
-    cout << "Rebuilt Transactions:" << endl;
+    cout << "\nRebuilt Transactions:" << endl;
     for (int i = 0; i < transactions.size(); i++)
     {
         for (int j = 0; j < transactions[i].size(); j++)
@@ -148,7 +150,6 @@ int main()
             cout << " Lift : " << lift;
 
             cout << endl;
-            cout << endl;
         }
 
 
@@ -156,5 +157,8 @@ int main()
 
     }
 
+    // cout in terminal not in file
+    freopen("CON", "w", stdout);
+    cout<<"Done, check result.txt for output\n";
     return 0;
 }
