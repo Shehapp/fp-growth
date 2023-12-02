@@ -92,16 +92,45 @@ float get_support(vector<string>items, vector<vector<string>> transactions) {
          *@ Abdo sherif
          * */
 
+    return float(get_frequency(items, transactions)) / float(transactions.size());
+
     return 0;
 }
 
 
-float get_confidence(pair<string, string>rule, vector<vector<string>> transactions) {
+float get_confidence(pair<vector<string>, vector<string>> rule, vector<vector<string>> transactions)
+{
     /*TODO:[9] get all frequent
-         *@ Anas 
-         * */
+     *@ Anas
+     * */
 
-    return 0;
+    vector<string> mergedVector(rule.first.begin(), rule.first.end());
+    mergedVector.insert(mergedVector.end(), rule.second.begin(), rule.second.end());
+    
+    return float(get_frequency(mergedVector, transactions)) / float(get_frequency(rule.first, transactions));
+}
 
+float get_lift(pair<vector<string>, vector<string>> rule, vector<vector<string>> transactions)
+{
+    /*TODO:[11] get all frequent
+     *@ Tarek
+     * */
+
+    vector<string> mergedVector(rule.first.begin(), rule.first.end());
+    mergedVector.insert(mergedVector.end(), rule.second.begin(), rule.second.end());
+
+
+    float support_f = get_support(rule.first, transactions);
+    float support_s = get_support(rule.second, transactions);
+    float support_fs = get_support(mergedVector, transactions);
+
+    if (support_f == 0 || support_s == 0) {
+      
+        return 0;
+    }
+
+    float lift = (support_fs / (support_f * support_s));
+
+    return lift;
 
 }
