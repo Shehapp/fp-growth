@@ -12,7 +12,7 @@ void set_support(int min_support)
 
 vector<vector<string>> read_input(string path)
 {// TODO:[1] read transactions from xlsx file and return transactions
-    //  @ali
+    //  @tarek
     ifstream file(path);
 
     if (!file.is_open()) {

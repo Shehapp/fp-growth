@@ -26,7 +26,7 @@ int main()
 {
 
 
-    vector<vector<string>> transactions = read_input("J:\\college\\fp-growth-implementation\\data\\Horizontal_Format.csv"); //@ali
+    vector<vector<string>> transactions = read_input("J:\\college\\fp-growth-implementation\\data\\Horizontal_Format.csv"); //@tarek
 
     freopen("J:\\college\\fp-growth-implementation\\data\\result.txt","w",stdout);
 
