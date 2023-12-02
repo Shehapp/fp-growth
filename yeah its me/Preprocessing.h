@@ -6,6 +6,8 @@
 #include <algorithm>
 #include <unordered_set>
 #include <unordered_map>
+#include <fstream>
+#include <sstream>
 
 using namespace std;
 
@@ -21,7 +23,7 @@ struct freq {
     }
 };
 
-vector<vector<string>> read_input();
+vector<vector<string>> read_input(string path);
 unordered_map<string, int>  get_item_frequencies(const vector<vector<string>>& transactions);
 vector<freq> get_c1_frequent(
     const vector<vector<string>>& transactions,int support);

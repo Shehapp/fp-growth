@@ -10,19 +10,52 @@ void set_support(int min_support)
     support = min_support;
 }
 
-vector<vector<string>> read_input()
-{
-    vector<vector<string>> transactions;
-    // TODO:[1] read transactions from xlsx file and return transactions
+vector<vector<string>> read_input(string path)
+{// TODO:[1] read transactions from xlsx file and return transactions
     //  @ali
+    ifstream file(path);
 
-    return transactions;
+    if (!file.is_open()) {
+        cerr << "Error opening file." << std::endl;
+        return {};
+    }
+
+    vector<vector<string>> data;
+
+    string line;
+    getline(file, line); 
+
+    while (getline(file, line)) {
+        istringstream ss(line);
+        vector<string> row;
+        string value;
+
+        getline(ss, value, ',');
+
+        while (getline(ss, value, ',')) {
+
+            value.erase(0, value.find_first_not_of(" \t\n\r\f\v\""));
+            value.erase(value.find_last_not_of(" \t\n\r\f\v\"") + 1);
+
+            if (!value.empty()) {
+                row.push_back(value);
+            }
+        }
+
+        data.push_back(row);
+    }
+
+    return data;
 }
+
+
 
 
 
 unordered_map<string, int> get_item_frequencies(const vector<vector<string>>& transactions)
 {
+    // TODO:[1] read transactions from xlsx file and return transactions
+    //  @anas
 
     unordered_map<string, int> item_freq;
 
@@ -39,7 +72,8 @@ unordered_map<string, int> get_item_frequencies(const vector<vector<string>>& tr
 }
 
 vector<freq> get_c1_frequent(const vector<vector<string>>& transactions, int support)
-{
+{// TODO:[2] read transactions from xlsx file and return transactions
+    //  @anas
 
     unordered_map<string, int> item_freq = get_item_frequencies(transactions);
     vector<freq> c1_frequent;
@@ -63,7 +97,8 @@ vector<freq> get_c1_frequent(const vector<vector<string>>& transactions, int sup
 }
 
 vector<vector<string>> rebuild_transactions(const vector<vector<string>>& transactions, const vector<freq>& c1_frequent, int support)
-{
+{// TODO:[3] read transactions from xlsx file and return transactions
+    //  @abdo
     vector<vector<string>> new_transactions;
     unordered_map<string, int> item_freq = get_item_frequencies(transactions);
 

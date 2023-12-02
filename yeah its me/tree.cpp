@@ -61,7 +61,6 @@ map<string, vector<vector<string>>> get_cond_pattern_base(Tree tree) {
      * please use helper function to do this
      * @shehapoo
      * */
-
     vector<string>curPath;
     auto dfs = [&](auto&& self, Node* curNode)->void {
         if (!curPath.empty()) {
@@ -93,12 +92,12 @@ void get_all_freq(const vector<freq>& c1Frequent,
         curPath.push_back(i.item);
         sort(curPath.begin(), curPath.end());
         frequents->push_back(curPath);
-       
+
         vector<freq>new_c1Frequent =
             get_c1_frequent(conditional_pattern_base[i.item],support);
 
         if (!new_c1Frequent.empty()) {
-        
+
             vector<vector<string>> transactions = rebuild_transactions(conditional_pattern_base[i.item], c1Frequent,support);
 
             Tree tree = build_Tree(transactions);
@@ -108,8 +107,9 @@ void get_all_freq(const vector<freq>& c1Frequent,
                 frequents,
                 curPath,support);
         }
-        curPath.pop_back();
+        curPath.erase(std::find(curPath.begin(), curPath.end(), i.item));
 
     }
+
 
 }

@@ -2,6 +2,7 @@
 //
 
 #include "tree.h"
+#include "extraction.h"
 #include <iostream>
 
 using namespace std;
@@ -23,37 +24,29 @@ void printTree(const Node* root, int depth = 0) {
 
 int main()
 {
-    //vector<vector<string>> transactions = read_input(); //@ali
 
-    // read min_support and conf from user
-    // min_support var in preprocessing pack
-    int confident, min_support;
+
+    vector<vector<string>> transactions = read_input("C:/Users/tarek/source/repos/Fp-growth/Fp-growth/output.csv"); //@ali
+    
+
+    cout << "Transactions : " << endl;
+    for (int i = 0; i < transactions.size(); i++) {
+
+        for (int j = 0; j < transactions[i].size(); j++) {
+
+            cout << transactions[i][j] << " ";
+        }
+        cout << endl;
+    }
+
+    cout << endl;
+    cout << "Enter min support and confident : " << endl;
+    int min_support;
+    float confident;
     cin >> min_support >> confident;
     set_support(min_support);
-    vector<vector<string>> transactions =
-    {
-        {"M", "O", "N", "K", "E", "Y"},
-        {"D", "O", "N", "K", "E", "Y"},
-        {"M", "A", "K", "E"},
-        {"M", "U", "C", "K", "Y"},
-        {"C", "O", "O", "K", "I", "E"}
-    };
 
-    /*
-    * {
-    *  
-    * 
-    * 
-    	{"I1","I2","I3"}
-      	{"I2","I3","I4"}
-	    {"I4","I5"}
-	    {"I1","I2","I4"}
-     	{"I1","I2","I3","I5"}
-	    {"I1","I2","I3","I4"}
-      }
-    
-    
-    */
+
 
     // get frequent items l1
     vector<freq> c1Frequent = get_c1_frequent(transactions,min_support); //@anas
@@ -80,26 +73,31 @@ int main()
         cout << endl;
     }
 
-   /* vector<vector<string>> transactions = {
-        {"K","E","M","O","Y"},
-        {"K","E","O","Y"},
-        {"K","E","M"},
-        {"K","M","Y"},
-        {"K","E","O"},
+    cout << endl;
 
-    };*/
     //build the tree
     Tree tree = build_Tree(transactions); //@tarek
 
+    cout << "FP-Tree" << endl;
+
     printTree(tree.root);
+
+    cout << endl;
+
 
     // get conditional pattern base
     map<string, vector<vector<string>>>conditional_pattern_base = get_cond_pattern_base(tree); //@shehapoo
+
+
 
     // get all c1Frequent :)
     vector<vector<string>>frequents;
     vector<string>curPath;
     get_all_freq(c1Frequent, conditional_pattern_base, &frequents, curPath,min_support); //@shehapoo
+
+
+    //get freq for all frequent items 
+    cout << "Frequent itemsets : " << endl;
 
     for (int i = 0; i < frequents.size(); i++)
     {
@@ -107,21 +105,62 @@ int main()
         {
             cout << frequents[i][j] << " ";
         }
-        cout << endl;
+        cout << " (frequency : " << get_frequency(frequents[i], transactions) << " ) " << endl;;
+        
     }
+    cout << endl;
+
+
+
+    //get the confidence of each rule 
+    cout << "RULES confidence :" << endl;
+    for (int i = 0; i < frequents.size(); i++) {
+
+        vector<  pair < vector<string>, vector<string>> >rules;
+
+        rules = get_rules(frequents[i]);
+        float freq_support = get_support(frequents[i],transactions);
+
+        //for each rule get the confidence 
+        for (int j = 0; j < rules.size(); j++) {
+
+            
+            for (int k = 0; k < rules[j].first.size();k++) {
+
+                cout << rules[j].first[k]<<" ";
+            }
+            cout << " --> ";
+            for (int k = 0; k < rules[j].second.size(); k++) {
+
+                cout << rules[j].second[k] << " ";
+            }
+            float conf = get_confidence(rules[j], transactions);
+            float lift = get_lift(rules[j], transactions);
+            cout << " confidence: "<< conf;
+
+            if (conf >= confident)
+                cout << " Strong rule ";
+            
+
+            cout << " Support : " << freq_support;
+
+            cout << " Lift : " << lift;
+
+            cout << endl;
+            cout << endl;
+        }
+
+
+
+
+    }
+
+
+
+
+
+
+    cout << "it's worked\n";
+    
     return 0;
-
-
-    cout << "its worked\n";
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
