@@ -26,8 +26,9 @@ int main()
 {
 
 
-    vector<vector<string>> transactions = read_input("C:/Users/tarek/source/repos/Fp-growth/Fp-growth/output.csv"); //@ali
-    
+    vector<vector<string>> transactions = read_input("J:\\college\\fp-growth-implementation\\data\\Horizontal_Format.csv"); //@ali
+
+    freopen("J:\\college\\fp-growth-implementation\\data\\result.txt","w",stdout);
 
     cout << "Transactions : " << endl;
     for (int i = 0; i < transactions.size(); i++) {
@@ -97,7 +98,7 @@ int main()
 
 
     //get freq for all frequent items 
-    cout << "Frequent itemsets : " << endl;
+    cout << "Frequent item sets : " << endl;
 
     for (int i = 0; i < frequents.size(); i++)
     {
@@ -155,12 +156,5 @@ int main()
 
     }
 
-
-
-
-
-
-    cout << "it's worked\n";
-    
     return 0;
 }
